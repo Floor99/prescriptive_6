@@ -12,6 +12,25 @@ from ass_3.termination import Termination
 
 
 class GeneticAlgorithm:
+    """
+    A class representing a Genetic Algorithm (GA) for optimization.
+
+    Attributes:
+    - initializer (Initializer): The initialization strategy for the GA.
+    - termination_strategy (Termination): The termination criteria for the GA.
+    - selection_strategy (Selection): The parent selection strategy for the GA.
+    - crossover_strategy (CrossOver): The crossover strategy for the GA.
+    - mutation_strategy (Mutation): The mutation strategy for the GA.
+    - mating_probability (float): Probability of parents mating during crossover.
+    - constraints (list[Constraint]): List of constraints to be satisfied.
+
+    Methods:
+    - __init__(initializer: Initializer, termination_strategy: Termination, selection_strategy: Selection,
+                crossover_strategy: CrossOver, mutation_strategy: Mutation, mating_probability: float,
+                constraints: list[Constraint]) -> None: Initialize a GeneticAlgorithm object.
+    - run_algorithm(): Run the Genetic Algorithm.
+    """
+    
     def __init__(
         self,
         initializer:Initializer,
@@ -22,6 +41,21 @@ class GeneticAlgorithm:
         mating_probability: float,
         constraints:list[Constraint],
     ) -> None:
+        """
+        Initialize a GeneticAlgorithm object.
+
+        Parameters:
+        - initializer (Initializer): The initialization strategy for the GA.
+        - termination_strategy (Termination): The termination criteria for the GA.
+        - selection_strategy (Selection): The parent selection strategy for the GA.
+        - crossover_strategy (CrossOver): The crossover strategy for the GA.
+        - mutation_strategy (Mutation): The mutation strategy for the GA.
+        - mating_probability (float): Probability of parents mating during crossover.
+        - constraints (list[Constraint]): List of constraints to be satisfied.
+
+        Returns:
+        - None
+        """
         
         self.initializer = initializer
         self.termination_strategy = termination_strategy
@@ -32,6 +66,13 @@ class GeneticAlgorithm:
         self.constraints = constraints
 
     def run_algorithm(self):
+        """
+        Run the Genetic Algorithm.
+
+        Returns:
+        - Chromosome: The best solution found by the GA.
+        """
+        
         population = self.initializer.initialize_population()
         new_offspring = copy.deepcopy(population)
         start_time = time.time()

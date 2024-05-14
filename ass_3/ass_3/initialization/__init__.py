@@ -4,16 +4,15 @@ from ass_3.chromosome import Chromosome
 from ass_3.constraints import Constraint, chromosome_meets_all_constraints
 
 
-def create_random_chromosome(nr_of_bits:int, constraints:list[Constraint]) -> Chromosome:
+def create_random_chromosome(nr_of_bits:int) -> Chromosome:
     """
-    Create a random Chromosome object that meets the given constraints.
+    Create a random Chromosome object.
 
     Parameters:
     - nr_of_bits (int): The number of bits in the chromosome.
-    - constraints (list[Constraint]): List of constraints to be satisfied.
 
     Returns:
-    - Chromosome: A random Chromosome object that satisfies the constraints.
+    - Chromosome: A random Chromosome object.
     """
     
     bits_string = list(f'{random.getrandbits(nr_of_bits):=0{nr_of_bits}b}')
@@ -23,6 +22,17 @@ def create_random_chromosome(nr_of_bits:int, constraints:list[Constraint]) -> Ch
 
 
 def create_valid_chromosome(nr_of_bits:int, constraints:list[Constraint]) -> Chromosome:
+    """
+    Create a valid Chromosome object that meets the given constraints.
+
+    Parameters:
+    - nr_of_bits (int): The number of bits in the chromosome.
+    - constraints (list[Constraint]): List of constraints to be satisfied.
+
+    Returns:
+    - Chromosome: A valid Chromosome object that satisfies the constraints.
+    """
+    
     while True:
         chromosome = create_random_chromosome(nr_of_bits, constraints)
         if chromosome_meets_all_constraints(chromosome, constraints):
@@ -70,10 +80,9 @@ class Initializer:
         Initialize the population based on the provided parameters.
 
         Returns:
-        - None
+        - list[Chromosome]: A list of Chromosome objects representing the initialized population.
         """
-        
-        # self.population = initialize_population(self.population_size, self.chromosome_length, self.constraints)
+
         return initialize_population(self.population_size, self.chromosome_length, self.constraints)
         
 

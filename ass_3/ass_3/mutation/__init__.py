@@ -5,21 +5,45 @@ from ass_3.chromosome import Chromosome
 
 
 class Mutation(ABC):
+    """
+    Abstract base class representing a mutation operation on chromosomes.
+
+    Methods:
+    - mutate(): Abstract method for mutating a chromosome.
+
+    Parameters:
+    - chromosome (Chromosome): The chromosome to be mutated.
+
+    Returns:
+    - Chromosome: The mutated chromosome.
+    """
+    
     @abstractmethod
     def mutate(self):
         """
-        Abstract method for mutating a population of chromosomes.
+        Abstract method for mutating a chromosome.
 
         Parameters:
-        - population (list[Chromosome]): List of Chromosome objects representing the population.
+        - chromosome (Chromosome): The chromosome to be mutated.
 
         Returns:
-        - list[Chromosome]: List of mutated Chromosome objects.
+        - Chromosome: The mutated chromosome.
         """
         pass
     
 
 class UniformCrossMutation(Mutation):
+    """
+    A class implementing uniform crossover mutation on chromosomes.
+
+    Attributes:
+    - mutation_probability (float): Probability of mutation for each bit.
+
+    Methods:
+    - __init__(mutation_probability: float): Initialize a UniformCrossMutation object.
+    - mutate(chromosome: Chromosome) -> Chromosome: Mutate the chromosome using uniform crossover mutation.
+    """
+    
     def __init__(self, mutation_probability:float) -> None:
         """
         Initialize a UniformCrossMutation object.
@@ -30,19 +54,21 @@ class UniformCrossMutation(Mutation):
         Returns:
         - None
         """
+        
         self.mutation_probability = mutation_probability
+        
         
     def mutate(self, chromosome:Chromosome):
         """
-        Mutate the population using uniform crossover mutation.
+        Mutate the chromosome using uniform crossover mutation.
 
-        This method mutates the population by flipping bits with a probability defined by the mutation_probability.
+        This method mutates the chromosome by flipping bits with a probability defined by the mutation_probability.
 
         Parameters:
-        - population (list[Chromosome]): List of Chromosome objects representing the population.
+        - chromosome (Chromosome): The chromosome to be mutated.
 
         Returns:
-        - list[Chromosome]: List of mutated Chromosome objects.
+        - Chromosome: The mutated chromosome.
         """
 
         bits = chromosome.bits

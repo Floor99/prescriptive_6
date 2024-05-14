@@ -3,6 +3,16 @@ import time
 
 
 class Termination(ABC):
+    """
+    Abstract base class representing termination criteria for an algorithm.
+
+    Methods:
+    - meets_termination(): Abstract method for checking if termination criteria are met.
+
+    Returns:
+    - bool: True if termination criteria are met, False otherwise.
+    """
+    
     @abstractmethod
     def meets_termination(self):
         """

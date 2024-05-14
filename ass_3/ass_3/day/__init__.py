@@ -2,6 +2,15 @@
 
 
 class StartDay:
+    """
+    A class representing the start day of maintenance.
+
+    Methods:
+    - __init__(bits:list[int]) -> None: Initialize a StartDay object.
+    - decode_bits() -> None: Decode the bit representation of the start day.
+    - __repr__() -> str: Return a string representation of the StartDay object.
+    """
+    
     def __init__(self, bits:list[int]) -> None:
         """
         Initialize a StartDay object.

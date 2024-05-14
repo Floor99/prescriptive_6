@@ -1,6 +1,15 @@
 
 
 class Team:
+    """
+    A class representing a team.
+
+    Methods:
+    - __init__(bits: list[int]) -> None: Initialize a Team object.
+    - decode_bits() -> None: Decode the bit representation of the team.
+    - __repr__() -> str: Return a string representation of the Team object.
+    """
+    
     def __init__(self, bits:list[int]) -> None:
         """
         Initialize a Team object.
@@ -13,6 +22,7 @@ class Team:
         """
         self.bits = bits
         self.decode_bits()
+        
         
     def decode_bits(self) -> None:
         """

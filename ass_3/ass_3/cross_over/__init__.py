@@ -7,6 +7,13 @@ from ass_3.chromosome import Chromosome
 
 
 class CrossOver(ABC):
+    """
+    Abstract base class representing a crossover operation on chromosomes.
+
+    Methods:
+    - cross_over(): Abstract method for performing crossover operation.
+    """
+    
     @abstractmethod
     def cross_over(self):
         """
@@ -21,8 +28,8 @@ class SingleCrossOver(CrossOver):
         Perform single-point crossover operation.
 
         Parameters:
-        - parent1: The first parent chromosome.
-        - parent2: The second parent chromosome.
+        - parent1 (Chromosome): The first parent chromosome.
+        - parent2 (Chromosome): The second parent chromosome.
 
         Returns:
         - list[Chromosome]: List of child chromosomes resulting from the crossover.

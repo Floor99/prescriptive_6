@@ -3,6 +3,15 @@ from ass_3.engine import Engine
 
 
 class EnginePenalty:
+    """
+    A class representing the penalty associated with an engine's maintenance delay.
+
+    Methods:
+    - __init__(start_day: StartDay, engine: Engine) -> None: Initialize a Penalty object.
+    - get_penalty(): Calculate the penalty of an engine when the safety date is overdue.
+    - __repr__() -> str: Return a string representation of the Penalty object.
+    """
+    
     def __init__(self, start_day:StartDay, engine:Engine) -> None:
         """
         Initialize a Penalty object.

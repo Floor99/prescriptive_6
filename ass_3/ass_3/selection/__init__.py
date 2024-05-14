@@ -5,6 +5,13 @@ from ass_3.penalty import EnginePenalty
 
 
 class Selection(ABC):
+    """
+    Abstract base class representing a selection operation on a population of chromosomes.
+
+    Methods:
+    - select_parents(population: list[Chromosome]) -> list[Chromosome]: Abstract method for selecting parents from a population.
+    """
+    
     @abstractmethod
     def select_parents(self):
         """
@@ -20,6 +27,18 @@ class Selection(ABC):
 
 
 class RouletteWheelSelection(Selection):
+    """
+    A class implementing roulette wheel selection for selecting parents from a population.
+
+    Attributes:
+    - nr_of_parents (int): Number of parents to be selected.
+    - modulo_two (bool): If True, ensures the number of selected parents is even.
+
+    Methods:
+    - __init__(nr_of_parents: int, modulo_two: bool=True) -> None: Initialize a RouletteWheelSelection object.
+    - select_parents(population: list[Chromosome]) -> list[Chromosome]: Select parents from the population using roulette wheel selection.
+    """
+    
     def __init__(self, nr_of_parents:int, modulo_two:bool=True) -> None:
         """
         Initialize a RouletteWheelSelection object.

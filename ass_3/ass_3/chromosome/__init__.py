@@ -5,6 +5,21 @@ from ass_3.utils import select_engines_for_maintenance
 
 
 class Chromosome:
+    """
+    A class representing a Chromosome object.
+
+    Attributes:
+    - all_engines (DataFrame): DataFrame containing all engine data.
+    - engines_for_maintenance (DataFrame): DataFrame containing engines selected for maintenance.
+    - maintenance_ids (list): List of IDs of engines selected for maintenance.
+
+    Methods:
+    - __init__(bits:list[int]) -> None: Initialize a Chromosome object.
+    - decode_bits() -> None: Decode the bit representation of the chromosome.
+    - get_penalty() -> None: Calculate the penalty associated with the chromosome.
+    - __repr__() -> str: Return a string representation of the Chromosome object.
+    """
+    
     all_engines = pd.read_csv('ass_3/data/RUL_consultancy_predictions_A3-2.csv', sep = ";")
     engines_for_maintenance = select_engines_for_maintenance(all_engines, 29)
     maintenance_ids = engines_for_maintenance["id"].tolist()
@@ -54,5 +69,12 @@ class Chromosome:
     
     
     def __repr__(self):
+        """
+        Return a string representation of the Chromosome object.
+
+        Returns:
+        - str: String representation of the Chromosome object.
+        """
+        
         class_name = type(self).__name__
         return f"{class_name}(bits={self.bits!r},\n engine_genes={self.engine_genes!r},\n penalty={self.penalty!r})"

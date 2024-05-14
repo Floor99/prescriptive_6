@@ -5,6 +5,13 @@ from ass_3.chromosome import Chromosome
 
 
 class Constraint(ABC):
+    """
+    Abstract base class representing a constraint on chromosomes.
+
+    Methods:
+    - meets_constraint(): Abstract method for checking if a chromosome meets the constraint.
+    """
+    
     @abstractmethod
     def meets_constraint(self):
         """
