@@ -32,8 +32,8 @@ class Day31Constraint(Constraint):
         """
         
         for engine_gene in chromosome.engine_genes:
-            if engine_gene.start_day == 31:
-                return False 
+            if engine_gene.start_day == 31:             # check if start day is day 31
+                return False
         
         return True
     
@@ -51,7 +51,7 @@ class CompletesMaintenanceIn30Days(Constraint):
         """
         
         for engine_gene in chromosome.engine_genes:
-            if engine_gene.start_day.start_day + engine_gene.maintenance_time > 30:
+            if engine_gene.start_day.start_day + engine_gene.maintenance_time > 30:     # check if maintenance time is complete before 30 days
                 return False 
         
         return True 
@@ -73,8 +73,8 @@ class TeamWorksAtOneEngine(Constraint):
             remainder = copy.deepcopy(chromosome.engine_genes[i:])
             engine_gene = remainder.pop(0)
             for rem_engine_gene in remainder:
-                if engine_gene.team == rem_engine_gene.team:
-                    if rem_engine_gene.start_day < (engine_gene.start_day + engine_gene.maintenance_time) or rem_engine_gene.start_day > (engine_gene.start_day - rem_engine_gene.maintenance_time):
+                if engine_gene.team == rem_engine_gene.team:    # check if teams work on overlapping maintenance periods
+                    if rem_engine_gene.start_day.start_day < (engine_gene.start_day.start_day + engine_gene.maintenance_time) or rem_engine_gene.start_day.start_day > (engine_gene.start_day.start_day - rem_engine_gene.maintenance_time):
                         return False
         return True
     
@@ -92,7 +92,7 @@ def chromosome_meets_all_constraints(chromosome:Chromosome, constraints:list[Con
     """
     
     for constraint in constraints:
-        if not constraint.meets_constraint(chromosome):
+        if not constraint.meets_constraint(chromosome):     # check chromosome for all contraints
             return False
     
     return True

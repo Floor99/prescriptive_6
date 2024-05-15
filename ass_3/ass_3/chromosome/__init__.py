@@ -20,8 +20,11 @@ class Chromosome:
     - __repr__() -> str: Return a string representation of the Chromosome object.
     """
     
+    # Read all engines data with RUL and ids
     all_engines = pd.read_csv('ass_3/data/RUL_consultancy_predictions_A3-2.csv', sep = ";")
+    # Select the engines with a safety date less than 29 - the ones that need maintenance 
     engines_for_maintenance = select_engines_for_maintenance(all_engines, 29)
+    # Get ids of engines that are selected for maintenance
     maintenance_ids = engines_for_maintenance["id"].tolist()
 
 
@@ -51,8 +54,14 @@ class Chromosome:
         Returns:
         - None
         """
+        
+        # split the bit representation into engine gene elements
         self.engine_gene_elements = [self.bits[i:i+7] for i in range(0, len(self.bits), 7)]
+        
+        # create EngineGene objects for each element
         self.engine_genes = [EngineGene(id, self.engine_gene_elements[i]) for i, id in enumerate(self.maintenance_ids)]
+        
+        # get ids of engine genes 
         self.engine_ids = [gene.engine_id for gene in self.engine_genes]
     
     def get_penalty(self) -> None:
@@ -65,6 +74,7 @@ class Chromosome:
         - None
         """
         
+        # sum up the penalties of all enginge genes -> penalties for total chromosome
         self.penalty = sum([engine_gene.penalty.penalty for engine_gene in self.engine_genes])
     
     

@@ -13,6 +13,7 @@ class EngineGene:
     - maintenance_type_b (list): List of maintenance times for maintenance type B for each engine.
     """
     
+    # define maintenance times for maintenance of teams with type a and b for all the engines
     maintenance_type_a = [4 if 1 <= j <= 20 else 3 if 21 <= j <= 55 else 2 if 56 <= j <= 80 else 8 for j in range(1, 100+1)]
     maintenance_type_b = [t + 1 if 1 <= j <= 25 else t + 2 if 26 <= j <= 70 else t + 1 for j, t in enumerate(maintenance_type_a, start=1)]
 
@@ -55,9 +56,11 @@ class EngineGene:
         - None
         """
         
+        # get team type and engine id (for type we use kind, because type is already a python function)
         team_kind = self.team.kind
         engine_id = self.engine.engine_id
 
+        # determine the maintenance time based on team type and engine id
         if team_kind == "a":
             self.maintenance_time = self.maintenance_type_a[engine_id-1]
 
@@ -73,9 +76,11 @@ class EngineGene:
         - None
         """
         
+        # check if start day is 0 -> when start day is zero, the engine is not maintained and needs to get full penalty
         if self.start_day.start_day == 0:
             self.start_day.start_day = 9999999999
-            
+        
+        # calculate the penalty based on the start day and engine
         self.penalty = EnginePenalty(self.start_day, self.engine)
 
     def __repr__(self) -> str:

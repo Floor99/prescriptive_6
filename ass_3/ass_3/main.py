@@ -5,12 +5,13 @@ from ass_3.initialization import Initializer
 from ass_3.mutation import UniformCrossMutation
 from ass_3.selection import RouletteWheelSelection
 from ass_3.termination import TimeTermination
+import pandas as pd
 
 
 CHROMOSOME_LENGTH = 168
-POPULATION_SIZE = 100
-MAX_DURATION = 60
-NR_OF_PARENTS = 20
+POPULATION_SIZE = 4
+MAX_DURATION = 10
+NR_OF_PARENTS = 2
 MUTATION_PROBABILITY = 0.1
 MATING_PROBABILITY = 0.9
 
@@ -43,7 +44,8 @@ def main():
     print(best_chromosome)
     
     engine_ids = best_chromosome.engine_ids
-    teams = [engine_gene.team.kind for engine_gene in best_chromosome.engine_genes]
+    teams_kind = [engine_gene.team.kind for engine_gene in best_chromosome.engine_genes]
+    teams = [engine_gene.team.team for engine_gene in best_chromosome.engine_genes]
     safety_day = [engine_gene.engine.safety_day for engine_gene in best_chromosome.engine_genes]
     start_day = [engine_gene.start_day.start_day for engine_gene in best_chromosome.engine_genes]
     end_day = [engine_gene.start_day.start_day + engine_gene.maintenance_time for engine_gene in best_chromosome.engine_genes]
@@ -52,6 +54,8 @@ def main():
     total_cost = best_chromosome.penalty
     
     print(f"{engine_ids= }")
+    print("----------")
+    print(f"{teams_kind= }")
     print("----------")
     print(f"{teams= }")
     print("----------")
@@ -65,6 +69,19 @@ def main():
     print("----------")
     print(f"{total_cost= }")
     print("----------")
+    
+    dict_final = {'engine id' : engine_ids,
+                  'team type' : teams_kind,
+                  'teams' : teams,
+                  'safety day' : safety_day,
+                  'start day' : start_day,
+                  'end day' : end_day,
+                  'penalty' : penalty}
+    
+    print(dict_final)
+
+    
+    
     
 
 if __name__ =="__main__":

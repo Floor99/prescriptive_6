@@ -70,7 +70,7 @@ class UniformCrossMutation(Mutation):
         Returns:
         - Chromosome: The mutated chromosome.
         """
-
+        # iterate through each bit and flip it with a certain probability 
         bits = chromosome.bits
         for i, bit in enumerate(bits):
             r = random.uniform(0, 1)

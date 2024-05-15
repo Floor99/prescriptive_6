@@ -65,17 +65,20 @@ class RouletteWheelSelection(Selection):
         Returns:
         - list[Chromosome]: List of selected parent Chromosome objects.
         """
-        
+        # ensure number of parents is an even number 
         if not self.nr_of_parents%2 == 0:
             self.nr_of_parents -= 1
-
-        penalties = [chromosome.penalty for chromosome in population]
         
+        # calculate fitness values based on penalties
+        penalties = [chromosome.penalty for chromosome in population]
         inverted_values = [1.0 / penalty for penalty in penalties]
         probabilities = np.array(inverted_values) / sum(inverted_values)
+        
+        # select parent indices based on probabilities
         parents_indices = np.random.choice(len(population), size = self.nr_of_parents, p=probabilities, replace=False)
         parents = [population[i] for i in parents_indices]
         
+        # ensure that number of parents is an even number
         if self.modulo_two:
             if not len(parents)%2 == 0:
                 parents = parents[:-1]

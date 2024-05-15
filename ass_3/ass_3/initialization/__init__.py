@@ -14,7 +14,7 @@ def create_random_chromosome(nr_of_bits:int) -> Chromosome:
     Returns:
     - Chromosome: A random Chromosome object.
     """
-    
+    # generate a list of random bits and create a Chromosome object
     bits_string = list(f'{random.getrandbits(nr_of_bits):=0{nr_of_bits}b}')
     bits = list(map(int, bits_string))
     chromosome = Chromosome(bits)
@@ -32,17 +32,18 @@ def create_valid_chromosome(nr_of_bits:int, constraints:list[Constraint]) -> Chr
     Returns:
     - Chromosome: A valid Chromosome object that satisfies the constraints.
     """
-    
+    # keep generating random chromosome until a valid (meets all contraints) one is found
     while True:
-        chromosome = create_random_chromosome(nr_of_bits, constraints)
+        chromosome = create_random_chromosome(nr_of_bits)
         if chromosome_meets_all_constraints(chromosome, constraints):
             break
+        
     return chromosome
 
 
 def initialize_population(population_size:int, nr_of_bits:int, constraints:list[Constraint]) -> list[Chromosome]:
     """
-    Initialize a population of Chromosome objects.
+    Initialize a population of Chromosome objects that are valid (meets all contstraints).
 
     Parameters:
     - population_size (int): The size of the population.

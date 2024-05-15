@@ -50,7 +50,7 @@ class Engine:
     
     def get_engine_costs(self):
         """
-        Retrieve the engine costs based on its ID.
+        Retrieve the engine costs based on its ID from the predefined list.
 
         Returns:
         - None

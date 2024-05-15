@@ -36,14 +36,17 @@ class EnginePenalty:
         Returns:
         - None
         """
-        
+        # calculate the days beyond the safety day the maintenance has started
         days_beyond_safety_day = self.start_day.start_day - self.engine.safety_day
         
+        # when days_beyond_safety_day <0, the engine is not overdue the safety day, thus get 0 (which gives a penalty cost of 0)
         if days_beyond_safety_day < 0:
             days_beyond_safety_day = 0
         
+        # calculate penalty based on days beyond safety day 
         self.penalty = self.engine.engine_costs * days_beyond_safety_day**2
         
+        # cap the penalty at 250
         if self.penalty > 250:
             self.penalty = 250
     
