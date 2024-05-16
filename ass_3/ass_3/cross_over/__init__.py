@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 import random
-
 import numpy as np
-
 from ass_3.chromosome import Chromosome
+
+
+random.seed(1)
 
 
 class CrossOver(ABC):
@@ -35,8 +36,10 @@ class SingleCrossOver(CrossOver):
         - list[Chromosome]: List of child chromosomes resulting from the crossover.
         """
         
+        # select a random crossover point
         crossover_point = np.random.randint(1, len(parent1.bits) - 1 )
         
+        # perform single point cross over operation
         child1 = parent1.bits[:crossover_point] + parent2.bits[crossover_point:]
         child2 = parent2.bits[:crossover_point] + parent1.bits[crossover_point:]
         

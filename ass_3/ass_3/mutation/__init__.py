@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 import random
-
 from ass_3.chromosome import Chromosome
+
+random.seed(1)
 
 
 class Mutation(ABC):
@@ -70,8 +71,8 @@ class UniformCrossMutation(Mutation):
         Returns:
         - Chromosome: The mutated chromosome.
         """
-
-        bits = chromosome.bits
+        # iterate through each bit and flip it with a certain probability 
+        bits = chromosome.bits.copy()
         for i, bit in enumerate(bits):
             r = random.uniform(0, 1)
             if self.mutation_probability > r:

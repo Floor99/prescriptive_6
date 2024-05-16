@@ -32,7 +32,10 @@ class StartDay:
         Returns:
         - None
         """
+        
+        # convert the list of bits into a string representation
         bit_string = "".join(str(bit) for bit in self.bits)
+        # convert the binary string representation into an integer
         self.start_day = int(bit_string, 2)
         
     def __repr__(self) -> str:
