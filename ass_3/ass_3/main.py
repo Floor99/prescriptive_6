@@ -6,14 +6,15 @@ from ass_3.mutation import UniformCrossMutation
 from ass_3.selection import RouletteWheelSelection
 from ass_3.termination import TimeTermination
 import pandas as pd
+import random
 
-
+# random.seed(1)
 
 CHROMOSOME_LENGTH = 168
-POPULATION_SIZE = 200
+POPULATION_SIZE = 100
 MAX_DURATION = 5*60
 NR_OF_PARENTS = 10
-MUTATION_PROBABILITY = 0.1
+MUTATION_PROBABILITY = 0.005
 MATING_PROBABILITY = 0.9
 
 CONSTRAINTS = [
@@ -48,8 +49,8 @@ def main():
     teams_kind = [engine_gene.team.kind for engine_gene in best_chromosome.engine_genes]
     teams = [engine_gene.team.team + 1 for engine_gene in best_chromosome.engine_genes]
     safety_day = [engine_gene.engine.safety_day for engine_gene in best_chromosome.engine_genes]
-    start_day = [engine_gene.start_day.start_day for engine_gene in best_chromosome.engine_genes]
-    end_day = [engine_gene.start_day.start_day + engine_gene.maintenance_time for engine_gene in best_chromosome.engine_genes]
+    start_day = [engine_gene.start_day.start_day if engine_gene.start_day.start_day != 9999999999 else 'not maintained' for engine_gene in best_chromosome.engine_genes]
+    end_day = [engine_gene.start_day.start_day + engine_gene.maintenance_time if engine_gene.start_day.start_day != 9999999999 else 'not maintained' for engine_gene in best_chromosome.engine_genes]
     penalty = [engine_gene.penalty.penalty for engine_gene in best_chromosome.engine_genes]
     
     total_cost = best_chromosome.penalty
@@ -80,6 +81,7 @@ def main():
                   'penalty' : penalty}
     
     df_final = pd.DataFrame(dict_final).sort_values(["teams", "start day"], axis=0)
+    df_final.to_csv('final_df_GA_0005.csv')
     print(df_final)
 
     

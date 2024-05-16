@@ -74,6 +74,15 @@ class GeneticAlgorithm:
         """
         
         population = self.initializer.initialize_population()
+        
+        penalties_initial_population = np.array([chromosome.penalty for chromosome in population])    
+        best_chromosome_index_init_population = np.argmin(penalties_initial_population)
+        best_chromosome_init_population = population[best_chromosome_index_init_population]
+              
+        penalty_initial = best_chromosome_init_population.penalty 
+        
+        print(f"{penalty_initial= }")
+        
         new_offspring = copy.deepcopy(population)
         start_time = time.time()
         while not self.termination_strategy.meets_termination(start_time):
@@ -85,26 +94,24 @@ class GeneticAlgorithm:
                 if not will_parents_mate(self.mating_probability):
                     continue
                 else:
+                    print('Crossover')
                     while len(to_be_mutated) < len(new_offspring):
                         childs = self.crossover_strategy.cross_over(pair[0], pair[1])
                         examined_children = [chromosome_meets_all_constraints(child, self.constraints) for child in childs]
                         valid_children_indices = [i for i, valid_child in enumerate(examined_children) if valid_child]
                         valid_children = [childs[child] for child in valid_children_indices]
-                        # print(valid_children)
-                        # print("======================")
                         to_be_mutated.extend(valid_children)
             valid_mutations = []
+            print('Mutation')
             for i, chromosome in enumerate(to_be_mutated):
-                # print(i)
                 while True: 
                     mutated = self.mutation_strategy.mutate(chromosome)
                     if chromosome_meets_all_constraints(mutated, self.constraints):
                         valid_mutations.append(mutated)
                         break
-            # print("Mutation ended")
+            print('Mutation ended')
 
             new_offspring = valid_mutations
-            # new_offspring = to_be_mutated
         
             
         penalties = np.array([chromosome.penalty for chromosome in new_offspring])    
