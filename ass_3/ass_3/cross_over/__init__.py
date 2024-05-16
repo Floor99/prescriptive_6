@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 import random
-
 import numpy as np
-
 from ass_3.chromosome import Chromosome
+
+
+random.seed(1)
 
 
 class CrossOver(ABC):

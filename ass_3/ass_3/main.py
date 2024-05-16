@@ -8,10 +8,11 @@ from ass_3.termination import TimeTermination
 import pandas as pd
 
 
+
 CHROMOSOME_LENGTH = 168
-POPULATION_SIZE = 4
-MAX_DURATION = 10
-NR_OF_PARENTS = 2
+POPULATION_SIZE = 200
+MAX_DURATION = 5*60
+NR_OF_PARENTS = 10
 MUTATION_PROBABILITY = 0.1
 MATING_PROBABILITY = 0.9
 
@@ -45,7 +46,7 @@ def main():
     
     engine_ids = best_chromosome.engine_ids
     teams_kind = [engine_gene.team.kind for engine_gene in best_chromosome.engine_genes]
-    teams = [engine_gene.team.team for engine_gene in best_chromosome.engine_genes]
+    teams = [engine_gene.team.team + 1 for engine_gene in best_chromosome.engine_genes]
     safety_day = [engine_gene.engine.safety_day for engine_gene in best_chromosome.engine_genes]
     start_day = [engine_gene.start_day.start_day for engine_gene in best_chromosome.engine_genes]
     end_day = [engine_gene.start_day.start_day + engine_gene.maintenance_time for engine_gene in best_chromosome.engine_genes]
@@ -78,7 +79,8 @@ def main():
                   'end day' : end_day,
                   'penalty' : penalty}
     
-    print(dict_final)
+    df_final = pd.DataFrame(dict_final).sort_values(["teams", "start day"], axis=0)
+    print(df_final)
 
     
     

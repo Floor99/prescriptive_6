@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 import numpy as np
 from ass_3.chromosome import Chromosome
-from ass_3.penalty import EnginePenalty
 
 
 class Selection(ABC):

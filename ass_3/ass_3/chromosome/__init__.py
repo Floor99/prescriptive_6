@@ -40,6 +40,8 @@ class Chromosome:
         """
         
         self.bits = bits
+        i = int(len(bits)/7)
+        self.maintenance_ids = self.maintenance_ids[:i]
         self.decode_bits()
         self.get_penalty()
 

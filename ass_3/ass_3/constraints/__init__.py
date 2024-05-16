@@ -32,9 +32,8 @@ class Day31Constraint(Constraint):
         """
         
         for engine_gene in chromosome.engine_genes:
-            if engine_gene.start_day == 31:             # check if start day is day 31
+            if engine_gene.start_day.start_day == 31:             # check if start day is day 31
                 return False
-        
         return True
     
 class CompletesMaintenanceIn30Days(Constraint):
@@ -51,9 +50,10 @@ class CompletesMaintenanceIn30Days(Constraint):
         """
         
         for engine_gene in chromosome.engine_genes:
-            if engine_gene.start_day.start_day + engine_gene.maintenance_time > 30:     # check if maintenance time is complete before 30 days
-                return False 
-        
+            if not engine_gene.start_day.start_day == 9999999999:
+                if engine_gene.start_day.start_day + engine_gene.maintenance_time > 30:     # check if maintenance time is complete before 30 days
+                    return False 
+        # print("Meets CompletesMaintenanceIn30Days")
         return True 
 
 class TeamWorksAtOneEngine(Constraint):
@@ -71,11 +71,39 @@ class TeamWorksAtOneEngine(Constraint):
         
         for i, _ in enumerate(chromosome.engine_genes):
             remainder = copy.deepcopy(chromosome.engine_genes[i:])
+            # print(f"{remainder= }")
             engine_gene = remainder.pop(0)
+            # print(f"{engine_gene= }")
             for rem_engine_gene in remainder:
-                if engine_gene.team == rem_engine_gene.team:    # check if teams work on overlapping maintenance periods
-                    if rem_engine_gene.start_day.start_day < (engine_gene.start_day.start_day + engine_gene.maintenance_time) or rem_engine_gene.start_day.start_day > (engine_gene.start_day.start_day - rem_engine_gene.maintenance_time):
+                # print(f"{rem_engine_gene= }")
+                if engine_gene.team.team == rem_engine_gene.team.team:
+                    if engine_gene.start_day.start_day==9999999999 and rem_engine_gene.start_day.start_day==9999999999:
+                        continue
+                    r_start = rem_engine_gene.start_day.start_day
+                    e_start = engine_gene.start_day.start_day
+                    e_end = engine_gene.start_day.start_day + engine_gene.maintenance_time
+                    r_end = rem_engine_gene.start_day.start_day + rem_engine_gene.maintenance_time
+                    
+                    if r_start <= e_end and e_start <= r_end:
                         return False
+                        
+                        # if r_start >= e_start and r_start < e_end:
+                        #     return False
+                        # elif r_start <= e_start and r_end > e_start:
+                        #     return False
+                else:
+                    continue
+                
+                
+                
+                
+                
+                
+                # if engine_gene.team.team == rem_engine_gene.team.team:    # check if teams work on overlapping maintenance periods
+                #     if (rem_engine_gene.start_day.start_day < (engine_gene.start_day.start_day + engine_gene.maintenance_time)
+                #         or rem_engine_gene.start_day.start_day > (engine_gene.start_day.start_day - rem_engine_gene.maintenance_time)):
+                #         return False
+        # print("Meets TeamWorksAtOneEngine")
         return True
     
         

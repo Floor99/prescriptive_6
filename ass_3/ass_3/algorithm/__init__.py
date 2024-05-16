@@ -93,16 +93,18 @@ class GeneticAlgorithm:
                         # print(valid_children)
                         # print("======================")
                         to_be_mutated.extend(valid_children)
-            
             valid_mutations = []
-            for chromosome in to_be_mutated:
+            for i, chromosome in enumerate(to_be_mutated):
+                # print(i)
                 while True: 
                     mutated = self.mutation_strategy.mutate(chromosome)
                     if chromosome_meets_all_constraints(mutated, self.constraints):
                         valid_mutations.append(mutated)
-                        break 
+                        break
+            # print("Mutation ended")
 
             new_offspring = valid_mutations
+            # new_offspring = to_be_mutated
         
             
         penalties = np.array([chromosome.penalty for chromosome in new_offspring])    
