@@ -16,7 +16,11 @@ class Engine:
     all_engines = pd.read_csv('ass_3/data/RUL_consultancy_predictions_A3-2.csv', sep = ";")
     all_rul = pd.read_csv('ass_3/data/RUL_consultancy_predictions_A3-2.csv', sep = ";")['RUL'].tolist()
     
-    engines_for_maintenance = select_engines_for_maintenance(all_engines, 29)
+    # Read Predictions data with RUL and ids
+    prediction_engines = pd.read_csv('ass_3/data/Predictions.csv', sep = ";")
+    prediction_rul = pd.read_csv('ass_3/data/Predictions.csv', sep = ";")['RUL'].tolist()
+    
+    engines_for_maintenance = select_engines_for_maintenance(all_engines, 29)                   # CHANGE TO CORRECT ENGINES
     maintenance_ids = engines_for_maintenance["id"].tolist()
     maintenance_rul = engines_for_maintenance["RUL"].tolist()
 
@@ -32,7 +36,7 @@ class Engine:
         """
         
         self.engine_id = engine_id
-        self.maintenance_rul = self.all_rul[self.engine_id-1]
+        self.maintenance_rul = self.all_rul[self.engine_id-1]             
         self.get_safety_day()
         self.get_engine_costs()
     

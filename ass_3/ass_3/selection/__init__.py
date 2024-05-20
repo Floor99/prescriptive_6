@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import random
 import numpy as np
 from ass_3.chromosome import Chromosome
 
@@ -38,7 +39,7 @@ class RouletteWheelSelection(Selection):
     - select_parents(population: list[Chromosome]) -> list[Chromosome]: Select parents from the population using roulette wheel selection.
     """
     
-    def __init__(self, nr_of_parents:int, modulo_two:bool=True) -> None:
+    def __init__(self, nr_of_parents:int) -> None:
         """
         Initialize a RouletteWheelSelection object.
 
@@ -50,7 +51,6 @@ class RouletteWheelSelection(Selection):
         - None
         """
         self.nr_of_parents = nr_of_parents
-        self.modulo_two = modulo_two
 
     
     def select_parents(self, population:list[Chromosome]) -> list[Chromosome]:
@@ -64,21 +64,29 @@ class RouletteWheelSelection(Selection):
         Returns:
         - list[Chromosome]: List of selected parent Chromosome objects.
         """
+        population = population.copy()
         # ensure number of parents is an even number 
         if not self.nr_of_parents%2 == 0:
             self.nr_of_parents -= 1
         
+        # print(f"{population= }")
         # calculate fitness values based on penalties
         penalties = [chromosome.penalty for chromosome in population]
-        inverted_values = [1.0 / penalty for penalty in penalties]
-        probabilities = np.array(inverted_values) / sum(inverted_values)
+        print(f"{penalties= }")
+        inverted_values = [1.0 / (1 + penalty) for penalty in penalties]
+        # print(f"{inverted_values= }")
+        probabilities = (np.array(inverted_values) / sum(inverted_values))*100
+        print(f"{probabilities= }")
         
         # select parent indices based on probabilities
         parents_indices = np.random.choice(len(population), size = self.nr_of_parents, p=probabilities, replace=False)
+        # print(f"{parents_indices= }")
         parents = [population[i] for i in parents_indices]
+        # print(f"{parents= }")
+        # print(len(parents))
         
         # ensure that number of parents is an even number
-        if self.modulo_two:
-            if not len(parents)%2 == 0:
-                parents = parents[:-1]
+        if not len(parents)%2 == 0:
+            parents = parents[:-1]
+            print(f"{parents= }")
         return parents

@@ -11,10 +11,10 @@ import random
 # random.seed(1)
 
 CHROMOSOME_LENGTH = 168
-POPULATION_SIZE = 100
-MAX_DURATION = 5*60
-NR_OF_PARENTS = 10
-MUTATION_PROBABILITY = 0.005
+POPULATION_SIZE = 10
+MAX_DURATION = 10
+NR_OF_PARENTS = 4
+MUTATION_PROBABILITY = 0
 MATING_PROBABILITY = 0.9
 
 CONSTRAINTS = [
@@ -43,7 +43,8 @@ def main():
     )
     
     best_chromosome = algo.run_algorithm()
-    print(best_chromosome)
+    # print(best_chromosome)
+    
     
     engine_ids = best_chromosome.engine_ids
     teams_kind = [engine_gene.team.kind for engine_gene in best_chromosome.engine_genes]
@@ -81,7 +82,7 @@ def main():
                   'penalty' : penalty}
     
     df_final = pd.DataFrame(dict_final).sort_values(["teams", "start day"], axis=0)
-    df_final.to_csv('final_df_GA_0005.csv')
+    df_final.to_csv('final_df_GA_p20.csv')
     print(df_final)
 
     
