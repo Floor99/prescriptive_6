@@ -105,9 +105,9 @@ def initialize_population(population_size:int, nr_of_bits:int, constraints:list[
     Returns:
     - list[Chromosome]: A list of Chromosome objects representing the initialized population.
     """
-    with ProcessPoolExecutor(10) as exe:
-        population = [popu for popu in exe.map(build_valid_chromosome, [nr_of_bits]*population_size, [constraints]*population_size)]
-    # population = [build_valid_chromosome(nr_of_bits, constraints) for _ in range(population_size)]
+    # with ProcessPoolExecutor(10) as exe:
+    #     population = [popu for popu in exe.map(build_valid_chromosome, [nr_of_bits]*population_size, [constraints]*population_size)]
+    population = [build_valid_chromosome(nr_of_bits, constraints) for _ in range(population_size)]
     return population
 
 

@@ -21,9 +21,14 @@ class Chromosome:
     """
     
     # Read all engines data with RUL and ids
-    all_engines = pd.read_csv('ass_3/data/RUL_consultancy_predictions_A3-2.csv', sep = ";")
+    all_engines = pd.read_csv('ass_3/data/RUL_consultancy_predictions_A3-2.csv', sep = ";")     
+    
+    # Read Predictions data with RUL and ids
+    prediction_engines = pd.read_csv('ass_3/data/Predictions.csv', sep = ";")
+    
     # Select the engines with a safety date less than 29 - the ones that need maintenance 
-    engines_for_maintenance = select_engines_for_maintenance(all_engines, 29)
+    engines_for_maintenance = select_engines_for_maintenance(all_engines, 29)                   # CHANGE TO CORRECT ENGINE DATA
+    
     # Get ids of engines that are selected for maintenance
     maintenance_ids = engines_for_maintenance["id"].tolist()
 
